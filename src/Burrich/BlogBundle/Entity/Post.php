@@ -31,7 +31,7 @@ class Post
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="string", length=255)
+     * @ORM\Column(name="content", type="text")
      */
     private $content;
 
@@ -49,11 +49,16 @@ class Post
      */
     private $author;
 
+
+    /**
+     * [__construct description]
+     */
     public function __construct()
     {
         $this->author = "nico";
         $this->publishedDate = new \DateTime;
     }
+
 
     /**
      * Get id
