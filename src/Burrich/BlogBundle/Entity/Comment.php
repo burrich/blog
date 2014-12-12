@@ -5,12 +5,12 @@ namespace Burrich\BlogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Post
+ * Comment
  *
- * @ORM\Table(name="post")
- * @ORM\Entity(repositoryClass="Burrich\BlogBundle\Entity\PostRepository")
+ * @ORM\Table(name="comment")
+ * @ORM\Entity(repositoryClass="Burrich\BlogBundle\Entity\CommentRepository")
  */
-class Post
+class Comment
 {
     /**
      * @var integer
@@ -20,13 +20,6 @@ class Post
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255)
-     */
-    private $title;
 
     /**
      * @var string
@@ -43,14 +36,14 @@ class Post
     private $publishedDate;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
+     */
+    private $post;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      */
     private $author;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
-     */
-    private $comments;
 
 
     /**
@@ -73,33 +66,10 @@ class Post
     }
 
     /**
-     * Set title
-     *
-     * @param string $title
-     * @return Post
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string 
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
      * Set content
      *
      * @param string $content
-     * @return Post
+     * @return Comment
      */
     public function setContent($content)
     {
@@ -122,7 +92,7 @@ class Post
      * Set publishedDate
      *
      * @param \DateTime $publishedDate
-     * @return Post
+     * @return Comment
      */
     public function setPublishedDate($publishedDate)
     {
@@ -139,28 +109,5 @@ class Post
     public function getPublishedDate()
     {
         return $this->publishedDate;
-    }
-
-    /**
-     * Set author
-     *
-     * @param string $author
-     * @return Post
-     */
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    /**
-     * Get author
-     *
-     * @return string 
-     */
-    public function getAuthor()
-    {
-        return $this->author;
     }
 }
