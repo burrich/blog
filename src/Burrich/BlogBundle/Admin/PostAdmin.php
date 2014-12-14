@@ -14,8 +14,8 @@ class PostAdmin extends Admin
     {
         $formMapper
             ->add('title', 'text', array('label' => 'Title'))
-            ->add('author', 'text', array('label' => 'Author'))
-            ->add('content') //if no type is specified, SonataAdminBundle tries to guess it
+            ->add('content')
+            ->add('publishedDate')
         ;
     }
 
@@ -33,7 +33,18 @@ class PostAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('title')
+            ->add('content')
+            ->add('comments', null, array('template' => 'BurrichBlogBundle:Admin:list_comments.html.twig'))
             ->add('author')
+            ->add('publishedDate')
         ;
+    }
+
+    public function prePersist($post)
+    {
+        $container = $this->getConfigurationPool()->getContainer();
+        $currentUser = $container->get('security.context')->getToken()->getUser();
+
+        $post->setAuthor($currentUser);
     }
 }
