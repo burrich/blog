@@ -19,35 +19,47 @@ class LoadUserData extends ContainerAware implements FixtureInterface, OrderedFi
     {
         $encoderFactory = $this->container->get('security.encoder_factory');
 
-        $admin = new User();
-        $encoder = $encoderFactory->getEncoder($admin);
-        $admin->setUsername('admin');
-        $admin->setPassword($encoder->encodePassword('admin', $admin->getSalt()));
-        $admin->setEmail('admin@gmail.com');
-        $admin->addRole('ROLE_SUPER_ADMIN');
-        $admin->setEnabled(true);
+        $usersList = array(
+            array(
+                'username' => 'admin',
+                'password' => 'admin',
+                'email' => 'admin@gmail.com',
+                'role' => 'ROLE_SUPER_ADMIN',
+            ),
+            array(
+                'username' => 'nico',
+                'password' => 'nico',
+                'email' => 'nico@gmail.com',
+                'role' => 'ROLE_ADMIN',
+            ),
+            array(
+                'username' => 'user',
+                'password' => 'user',
+                'email' => 'user@gmail.com'
+            )
+        );
 
-        $nico = new User();
-        $encoder = $encoderFactory->getEncoder($nico);
-        $nico->setUsername('nico');
-        $nico->setPassword($encoder->encodePassword('nico', $nico->getSalt()));
-        $nico->setEmail('nico@gmail.com');
-        $nico->addRole('ROLE_ADMIN');
-        $nico->setEnabled(true);
+        foreach ($usersList as $userArray) {
+            $user = new User();
+            $encoder = $encoderFactory->getEncoder($user);
+            $user->setUsername($userArray['username']);
+            $user->setPassword($encoder->encodePassword($userArray['password'], $user->getSalt()));
+            $user->setEmail($userArray['email']);
+            $user->setEnabled(true);
 
-        $user = new User();
-        $encoder = $encoderFactory->getEncoder($user);
-        $user->setUsername('user');
-        $user->setPassword($encoder->encodePassword('user', $user->getSalt()));
-        $user->setEmail('user@gmail.com');
-        $user->setEnabled(true);
+            if (array_key_exists('role', $userArray)) {
+                $user->addRole($userArray['role']);
+            }
 
-        $manager->persist($admin);
-        $manager->persist($nico);
-        $manager->persist($user);
+            $manager->persist($user);
+        }
+
         $manager->flush();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getOrder()
     {
         return 1;
