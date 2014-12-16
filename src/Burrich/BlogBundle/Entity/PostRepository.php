@@ -3,6 +3,7 @@
 namespace Burrich\BlogBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * PostRepository
@@ -12,4 +13,22 @@ use Doctrine\ORM\EntityRepository;
  */
 class PostRepository extends EntityRepository
 {
+	public function getPosts($page, $postsPerPage)
+	{
+		$query = $this->createQueryBuilder('p')
+			->innerJoin('p.author', 'a')
+			->leftJoin('p.comments', 'c')
+			->addSelect('a')
+			->addSelect('c')
+			->orderBy('p.publishedDate', 'DESC')
+			->orderBy('p.title', 'DESC') // TODO a supprimer
+			->getQuery();
+
+		$query
+			->setFirstResult(($page - 1) * $postsPerPage)
+			->setMaxResults($postsPerPage)
+		;
+
+		return new Paginator($query, $fetchJoinCollection = true);
+	}
 }

@@ -9,13 +9,22 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class BlogController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/{page}", name="blog_index", defaults={"page" : 1}, requirements={"page": "\d+"})
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($page)
     {
+        $postsPerPage = $this->container->getParameter('posts_per_page');
+
+        $em = $this->getDoctrine()->getManager();
+        $posts = $em->getRepository('BurrichBlogBundle:Post')->getPosts($page, $postsPerPage);//findBy(array(), array('publishedDate' => 'DESC', 'title' => 'DESC'));
+
+        $nbPages = ceil(count($posts) / $postsPerPage);
+
         return array(
-                // ...
+            'posts' => $posts,
+            'nbPages' => $nbPages,
+            'currentPage' => $page
         );    
     }
 
