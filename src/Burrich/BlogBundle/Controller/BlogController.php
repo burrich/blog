@@ -17,9 +17,13 @@ class BlogController extends Controller
         $postsPerPage = $this->container->getParameter('posts_per_page');
 
         $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository('BurrichBlogBundle:Post')->getPosts($page, $postsPerPage);//findBy(array(), array('publishedDate' => 'DESC', 'title' => 'DESC'));
+        $posts = $em->getRepository('BurrichBlogBundle:Post')->getPosts($page, $postsPerPage);
 
         $nbPages = ceil(count($posts) / $postsPerPage);
+
+        if ($page < 1 || $page > $nbPages) {
+            throw $this->createNotFoundException("La page demandée n'existe pas.");
+        }
 
         return array(
             'posts' => $posts,

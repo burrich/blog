@@ -80,7 +80,7 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
-# Sonata configuration
+# Sonata
 sonata_block:
     default_contexts: [cms]
     blocks:
@@ -92,6 +92,7 @@ sonata_block:
 sonata_admin:
     title:      Welcome to Twin Peaks
 
+# FOSUserBundle
 fos_user:
     db_driver:     orm
     firewall_name: main
@@ -104,8 +105,16 @@ fos_user:
     service:
         user_manager: sonata.user.orm.user_manager
 
+# Intl
 services:
     twig.extension.intl:
         class: Twig_Extensions_Extension_Intl
         tags:
             - { name: twig.extension }
+
+# Doctrine extensions
+stof_doctrine_extensions:
+    default_locale: %locale%
+    orm:
+        default:
+            sluggable: true
