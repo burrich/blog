@@ -29,14 +29,14 @@ class LoadCommentData implements FixtureInterface, OrderedFixtureInterface
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quam turpis, elementum eget lacinia non, finibus eget metus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras quis elementum erat, non 
                     lobortis diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra feugiat dolor eget feugiat. Fusce est erat, ultrices sit amet odio et, volutpat viverra ligula. Nam nec 
                     mi nec lacus venenatis iaculis.',
-                'post' => $manager->getRepository('BurrichBlogBundle:Post')->findOneByTitle('Titre 1')
+                'post' => $manager->getRepository('BurrichBlogBundle:Post')->findOneByTitle('Titre 3')
             ),
             array(
                 'content' => 
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quam turpis, elementum eget lacinia non, finibus eget metus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras quis elementum erat, non 
                     lobortis diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra feugiat dolor eget feugiat. Fusce est erat, ultrices sit amet odio et, volutpat viverra ligula. Nam nec 
                     mi nec lacus venenatis iaculis.',
-                'post' => $manager->getRepository('BurrichBlogBundle:Post')->findOneByTitle('Titre 2')
+                'post' => $manager->getRepository('BurrichBlogBundle:Post')->findOneByTitle('Titre 3')
             ),
         );
 

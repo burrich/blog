@@ -1,0 +1,21 @@
+{% extends "BurrichBlogBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() ~ ' - ' ~ post.title }}{% endblock %}
+
+{% block posts %}
+  <div class="blog-post">
+    <h2 class="blog-post-title">{{ post.title }}</h2>
+    <p class="blog-post-meta">Le {{ post.publishedDate|localizeddate('long', 'none') }}, par <a href="">{{ post.author.username }}</a></p>
+    
+    {{ post.content }}
+  </div><!-- /.blog-post -->
+
+  {% if post.comments is not empty %}
+    <h3 id="comments">Commentaire(s) :</h3>
+
+    {% for comment in post.comments %}
+      <p class="blog-post-meta"><a href="">{{ comment.author }}</a> - {{ comment.publishedDate|localizeddate('long', 'none') }}</p>
+      <p>{{ comment.content }}</p>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

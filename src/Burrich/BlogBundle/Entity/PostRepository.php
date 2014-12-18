@@ -4,6 +4,7 @@ namespace Burrich\BlogBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\Orm\NoResultException;
 
 /**
  * PostRepository
@@ -26,9 +27,28 @@ class PostRepository extends EntityRepository
 
 		$query
 			->setFirstResult(($page - 1) * $postsPerPage)
-			->setMaxResults($postsPerPage)
-		;
+			->setMaxResults($postsPerPage);
 
 		return new Paginator($query, $fetchJoinCollection = true);
+	}
+
+	public function getPost($slug)
+	{
+		$query = $this->createQueryBuilder('p')
+			->innerJoin('p.author', 'a')
+			->leftJoin('p.comments', 'c')
+			->leftJoin('c.author', 'ca')
+			->addSelect('a')
+			->addSelect('c')
+			->addSelect('ca')
+			->where('p.slug = :slug')
+			->setParameter('slug', $slug)
+			->getQuery();
+		
+		try {
+			return $query->getSingleResult();
+		} catch (NoResultException $e) {
+			return null;
+		}
 	}
 }

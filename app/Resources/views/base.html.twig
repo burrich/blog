@@ -12,13 +12,12 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
   </head>
 
-  <body>
+  <body> <!-- TODO revoir la structure -->
     {% block body %}
     <div class="blog-masthead">
       <div class="container">
         <nav class="blog-nav">
-          <a class="blog-nav-item active" href="#">Accueil</a>
-          <a class="blog-nav-item" href="#">Contact</a>
+          <a class="blog-nav-item {{'page' in app.request.get('_route_params')|keys and app.request.get('_route_params')['page'] == 1 ? 'active' }}" href="{{ path('blog_index')}}" title="Accueil">Accueil</a>
         </nav>
       </div>
     </div>

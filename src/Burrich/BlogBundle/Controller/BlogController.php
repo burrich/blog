@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class BlogController extends Controller
 {
     /**
-     * @Route("/{page}", name="blog_index", defaults={"page" : 1}, requirements={"page": "\d+"})
+     * @Route("/{page}", name="blog_index", defaults={"page": 1}, requirements={"page": "\d+"})
      * @Template()
      */
     public function indexAction($page)
@@ -32,4 +32,21 @@ class BlogController extends Controller
         );    
     }
 
+    /**
+     * @Route("/{slug}", name="blog_post")
+     * @Template()
+     */
+    public function showAction($slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $post = $em->getRepository('BurrichBlogBundle:Post')->getPost($slug);
+
+        if (!$post) {
+            throw $this->createNotFoundException("La page demandée n'existe pas.");
+        }
+
+        return array(
+            'post' => $post
+        );
+    }
 }
