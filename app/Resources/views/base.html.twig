@@ -18,6 +18,13 @@
       <div class="container">
         <nav class="blog-nav">
           <a class="blog-nav-item {{'page' in app.request.get('_route_params')|keys and app.request.get('_route_params')['page'] == 1 ? 'active' }}" href="{{ path('blog_index')}}" title="Accueil">Accueil</a>
+          <a class="blog-nav-item" href="{{ path('sonata_admin_redirect')}}" title="Admin">Admin</a>
+          
+          {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <a class="blog-nav-item" href="{{ path('fos_user_security_logout')}}" title="Logout">Logout</a>
+          {% else %}
+            <a class="blog-nav-item" href="{{ path('fos_user_security_login')}}" title="Login">Login</a>
+          {% endif %}
         </nav>
       </div>
     </div>

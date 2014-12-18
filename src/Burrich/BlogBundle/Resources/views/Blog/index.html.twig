@@ -13,7 +13,7 @@
       {% if post.comments is not empty %}
         <div class="blog-post-comments"><a href="{{ path('blog_post', {'slug': post.slug}) }}#comments">{{ post.comments|length }} commentaire(s)</a></div>
       {% else %}
-        <div class="blog-post-comments"><a href="{{ path('blog_post', {'slug': post.slug}) }}">Commenter</a></div>
+        <div class="blog-post-comments"><a href="{{ path('blog_post', {'slug': post.slug}) }}#comments">Commenter</a></div>
       {% endif %}
     </div><!-- /.blog-post -->
   {% endfor %}

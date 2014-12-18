@@ -43,6 +43,7 @@ class PostRepository extends EntityRepository
 			->addSelect('ca')
 			->where('p.slug = :slug')
 			->setParameter('slug', $slug)
+			->orderBy('c.publishedDate', 'DESC')
 			->getQuery();
 		
 		try {
