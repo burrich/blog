@@ -12,3 +12,4 @@
 /composer.phar
 
 *~
+/src/Burrich/BlogBundle/toDelete

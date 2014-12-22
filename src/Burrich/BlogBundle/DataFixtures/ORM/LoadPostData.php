@@ -18,7 +18,7 @@ class LoadPostData implements FixtureInterface, OrderedFixtureInterface
     {
         $postsList = array(
             array(
-                'title' => 'Titre 1',
+                'title' => 'Titre 3',
                 'content' => 
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue, urna eget molestie tristique, eros urna sodales nibh, nec convallis justo est aliquet velit. Donec feugiat vitae felis lobortis tempus. 
                     In hac habitasse platea dictumst. Mauris dapibus id neque in ornare. Morbi in ornare quam. Nam lectus est, finibus vitae iaculis sit amet, elementum eu urna. Vivamus id fermentum ex. Nunc accumsan semper dolor a maximus. 
@@ -40,7 +40,7 @@ class LoadPostData implements FixtureInterface, OrderedFixtureInterface
                     Suspendisse potenti. Nam pharetra odio id lacus efficitur sodales.'
             ),
             array(
-                'title' => 'Titre 3',
+                'title' => 'Titre 1',
                 'content' => 
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum sit amet ipsum vulputate congue. Cras consectetur nisl ante, ac facilisis enim dapibus a. Cras iaculis malesuada scelerisque. 
                     Praesent eget est at dui fermentum feugiat non eget nisi. Vestibulum et feugiat est. Fusce lacinia turpis mollis maximus ultrices. In pretium volutpat mauris eu sollicitudin. Lorem ipsum dolor sit amet, 

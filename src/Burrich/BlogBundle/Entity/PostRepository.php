@@ -22,7 +22,6 @@ class PostRepository extends EntityRepository
 			->addSelect('a')
 			->addSelect('c')
 			->orderBy('p.publishedDate', 'DESC')
-			->orderBy('p.title', 'DESC') // TODO a supprimer
 			->getQuery();
 
 		$query

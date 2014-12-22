@@ -1,0 +1,18 @@
+{% extends "BurrichBlogBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Supprimer un commentaire{% endblock %}
+
+{% block content %}
+  <h2 class="blog-post-title">Supprimer un commentaire</h2>
+    
+  <p>"{{ comment.content }}"</p>
+
+  <p>Etes vous sur de vouloir supprimer ce commentaire ?</p>
+
+  {{ form_start(deleteCommentForm) }}
+    {{ form_errors(deleteCommentForm) }}
+
+    <input type="submit" value="Supprimer" class="btn" />
+    <a href="{{ path('post_show', {'slug': comment.post.slug}) }}#comments" title="Retour" class="btn btn-default">Retour</a>
+  {{ form_end(deleteCommentForm) }}
+{% endblock %}

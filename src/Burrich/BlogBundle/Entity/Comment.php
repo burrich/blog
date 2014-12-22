@@ -45,7 +45,6 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $author;
 

@@ -1,0 +1,23 @@
+<h3>Ajouter un commentaire</h3>
+
+{{ form_start(commentForm) }}
+  {{ form_errors(commentForm) }}
+
+  <div class="form-group">
+    {{ form_errors(commentForm.content) }}
+    {{ form_widget(commentForm.content) }}
+  </div>
+
+  {% if not is_granted('ROLE_USER') %}
+    <p class="blog-post-meta">
+      Votre commentaire sera publié anonymement. 
+      <a href="{{ path('fos_user_registration_register') }}" title="Inscription">Inscrivez-vous</a> ou 
+      <a href="{{ path('fos_user_security_login') }}" title="Connexion">connectez-vous</a> pour le publier avec votre nom d'utilisateur.
+    </p>
+  {% endif %}
+
+  <input type="submit" value="Publier" class="btn" />
+  <a href="{{ path('blog_index') }}" title="Retour" class="btn btn-default">Retour</a>
+{{ form_end(commentForm) }}
+
+<br>

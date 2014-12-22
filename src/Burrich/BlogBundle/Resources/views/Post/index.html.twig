@@ -1,19 +1,19 @@
 {% extends "BurrichBlogBundle::layout.html.twig" %}
 
-{% block posts %}
+{% block content %}
   {% for post in posts %}
     <div class="blog-post">
       <h2 class="blog-post-title">
-        <a href="{{ path('blog_post', {'slug': post.slug}) }}" title="{{ post.title }}">{{ post.title }}</a>
+        <a href="{{ path('post_show', {'slug': post.slug}) }}" title="{{ post.title }}">{{ post.title }}</a>
       </h2>
       <p class="blog-post-meta">Le {{ post.publishedDate|localizeddate('long', 'none') }}, par <a href="">{{ post.author.username }}</a></p>
       
       {{ post.content }}
 
       {% if post.comments is not empty %}
-        <div class="blog-post-comments"><a href="{{ path('blog_post', {'slug': post.slug}) }}#comments">{{ post.comments|length }} commentaire(s)</a></div>
+        <div class="blog-post-comments"><a href="{{ path('post_show', {'slug': post.slug}) }}#comments">{{ post.comments|length }} commentaire(s)</a></div>
       {% else %}
-        <div class="blog-post-comments"><a href="{{ path('blog_post', {'slug': post.slug}) }}#comments">Commenter</a></div>
+        <div class="blog-post-comments"><a href="{{ path('post_show', {'slug': post.slug}) }}#comments">Commenter</a></div>
       {% endif %}
     </div><!-- /.blog-post -->
   {% endfor %}
