@@ -12,40 +12,50 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
   </head>
 
-  <body> <!-- TODO revoir la structure -->
+  <body>
     {% block body %}
+    {# Navigation #}
     <div class="blog-masthead">
       <div class="container">
-        <nav class="blog-nav">
-          <a class="blog-nav-item {{'page' in app.request.get('_route_params')|keys and app.request.get('_route_params')['page'] == 1 ? 'active' }}" href="{{ path('blog_index')}}" title="Accueil">Accueil</a>
-          <a class="blog-nav-item" href="{{ path('sonata_admin_redirect')}}" title="Admin">Admin</a>
+        <ul class="blog-nav nav navbar-nav">
+          <li><a class="blog-nav-item {{'page' in app.request.get('_route_params')|keys and app.request.get('_route_params')['page'] == 1 ? 'active' }}" href="{{ path('blog_index') }}" title="Accueil">Accueil</a></li>
           
           {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-            <a class="blog-nav-item" href="{{ path('fos_user_security_logout')}}" title="Logout">Logout</a>
+
+            {% if is_granted('ROLE_ADMIN') %}
+            <li><a class="blog-nav-item" href="{{ path('sonata_admin_redirect') }}" title="Admin">Administration</a></li>
+            {% endif %}
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle blog-nav-item {{ app.request.get('_route') starts with 'fos_user_profil' ? 'active' }}" data-toggle="dropdown" role="button" aria-expanded="false">
+                <span class="glyphicon glyphicon-user" aria-hidden="false"></span> {{ app.user.username }} <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="{{ path('sonata_user_profile_show') }}">Profil</a></li>
+                <li><a href="{{ path('sonata_user_security_logout') }}">Deconnexion</a></li>
+              </ul>
+            </li>
+
           {% else %}
-            <a class="blog-nav-item" href="{{ path('fos_user_security_login')}}" title="Login">Login</a>
+            <li><a class="blog-nav-item {{ app.request.get('_route') == 'fos_user_registration_register' ? 'active' }}" href="{{ path('sonata_user_registration_register') }}" title="Inscription">Inscription</a></li>
+            <li><a class="blog-nav-item {{ app.request.get('_route') == 'fos_user_security_login' ? 'active' }}" href="{{ path('sonata_user_security_login') }}" title="Connexion">Connexion</a></li>
           {% endif %}
-        </nav>
+        </ul>
       </div>
     </div>
 
     <div class="container">
+      {# Title #}
       <div class="blog-header">
         <h1 class="blog-title">Welcome to Twin Peaks !</h1>
         <p class="lead blog-description">How's Annie ?</p>
       </div>
 
-      <div class="row">
-        <div class="col-sm-8 blog-main">
-          {% block content %}{% endblock %}
-        </div><!-- /.blog-main -->
-
-        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-          {% block sidebar %}{% endblock %}
-        </div><!-- /.blog-sidebar -->
-      </div><!-- /.row -->
+      {# Content #}
+      {% block content %}{% endblock %}
     </div>
 
+    {# Footer #}
     <footer class="blog-footer">
       <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
       <p>
@@ -54,6 +64,10 @@
     </footer>
     {% endblock %}
 
-    {% block javascripts %}{% endblock %}
+    {# Js #}
+    {% block javascripts %}
+      <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    {% endblock %}
   </body>
 </html>

@@ -23,7 +23,10 @@
         "sonata-project/user-bundle": "~2.2",
         "sonata-project/easy-extends-bundle": "~2.1",
         "stof/doctrine-extensions-bundle": "~1.1@dev",
-        "knplabs/knp-menu-bundle": "~1.1"
+        "knplabs/knp-menu-bundle": "~1.1",
+        "mopa/bootstrap-bundle": "v3.0.0-beta4",
+        "twbs/bootstrap": "v3.2.0",
+        "sonata-project/formatter-bundle": "~2.3"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

@@ -45,14 +45,26 @@ h6, .h6 {
 .blog-nav-item {
   position: relative;
   display: inline-block;
-  padding: 10px;
+  padding: 10px !important;
   font-weight: 500;
   color: #cdddeb;
 }
+
 .blog-nav-item:hover,
 .blog-nav-item:focus {
   color: #fff;
   text-decoration: none;
+  background-color: transparent !important; /* Dropdown issue */
+}
+
+.blog-nav-item:visited {
+  background-color: #428bca !important; /* Dropdown issue */
+}
+
+.dropdown-menu>li>a:hover { /* Dropdown issue */
+  background-color: #e8e8e8;
+  background-image: linear-gradient(to bottom,#f5f5f5 0,#e8e8e8 100%);
+  background-repeat: repeat-x;
 }
 
 /* Active state gets a caret at the bottom */
@@ -82,12 +94,14 @@ h6, .h6 {
   padding-top: 20px;
   padding-bottom: 20px;
 }
+
 .blog-title {
-  margin-top: 30px;
+  margin-top: 38px;
   margin-bottom: 0;
   font-size: 60px;
   font-weight: normal;
 }
+
 .blog-description {
   font-size: 20px;
   color: #999;
@@ -108,11 +122,13 @@ h6, .h6 {
   padding: 15px;
   margin: 0 -15px 15px;
 }
+
 .sidebar-module-inset {
   padding: 15px;
   background-color: #f5f5f5;
   border-radius: 4px;
 }
+
 .sidebar-module-inset p:last-child,
 .sidebar-module-inset ul:last-child,
 .sidebar-module-inset ol:last-child {
@@ -125,6 +141,7 @@ h6, .h6 {
   margin-bottom: 60px;
   text-align: left;
 }
+
 .pager > li > a {
   width: 140px;
   padding: 10px 20px;
@@ -140,13 +157,16 @@ h6, .h6 {
 .blog-post {
   margin-bottom: 60px;
 }
+
 .blog-post-title {
   margin-bottom: 5px;
   font-size: 40px;
 }
+
 .blog-post-title a, .blog-post-comments a {
   text-decoration: none;
 }
+
 .blog-post-meta {
   margin-bottom: 20px;
   color: #999;
@@ -162,8 +182,9 @@ h6, .h6 {
   color: #999;
   text-align: center;
   background-color: #f9f9f9;
-  border-top: 1px solid #e5e5e5;
+  /*border-top: 1px solid #e5e5e5;*/
 }
+
 .blog-footer p:last-child {
   margin-bottom: 0;
 }

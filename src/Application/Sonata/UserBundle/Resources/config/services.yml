@@ -1,0 +1,6 @@
+services:
+    sonata.user.block.profil:
+        class: Application\Sonata\UserBundle\Block\ProfilBlockService
+        arguments: [sonata.user.block.profil, @templating]
+        tags:
+            - { name: sonata.block }

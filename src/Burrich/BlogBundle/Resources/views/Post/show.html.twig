@@ -2,7 +2,7 @@
 
 {% block title %}{{ parent() ~ ' - ' ~ post.title }}{% endblock %}
 
-{% block content %}
+{% block sections %}
   <div class="blog-post">
     <h2 class="blog-post-title">{{ post.title }}</h2>
     <p class="blog-post-meta">Le {{ post.publishedDate|localizeddate('long', 'none') }}, par <a href="">{{ post.author.username }}</a></p>
@@ -17,7 +17,10 @@
       <h3>{{ post.comments|length }} commentaire(s) :</h3>
 
       {% for flashMessage in app.session.flashbag.get('notice') %}
-        <p>{{ flashMessage }}</p>
+        <div class="alert alert-success alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          {{ flashMessage }}
+        </div>
       {% endfor %}
 
       {% for comment in post.comments %}
