@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: ivory/ivory_ckeditor.yml }
 
 framework:
     #esi:             ~
@@ -30,8 +31,9 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form:
-        resources: ['bootstrap_3_layout.html.twig']
-        # resources: ['bootstrap_3_horizontal_layout.html.twig']
+        resources: 
+            - 'bootstrap_3_layout.html.twig'
+            - 'SonataFormatterBundle:Form:formatter.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -74,6 +76,7 @@ doctrine:
         #         mappings:
         #             ApplicationSonataUserBundle: ~
         #             SonataUserBundle: ~
+        #             ...
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -99,6 +102,13 @@ sonata_block:
 sonata_admin:
     title: Welcome to Twin Peaks
 
+    options:
+        html5_validate: false
+
+    templates:
+        # default global templates
+        layout:  SonataAdminBundle::layout.html.twig
+
 sonata_user:
     profile:
         # Profile show page is a dashboard as in SonataAdminBundle
@@ -111,11 +121,45 @@ sonata_user:
             - { route: 'sonata_user_profile_edit_authentication', label: 'Préférences', domain: 'SonataUserBundle'}
             - { route: 'sonata_user_security_logout', label: 'Déconnexion', domain: 'SonataUserBundle'}
 
-        # form:
-        #     type:               sonata_user_profile
-        #     handler:            sonata.user.profile.form.handler.default
-        #     name:               sonata_user_profile_form
-        #     validation_groups:  [Profile]
+        form:
+            type:               application_sonata_user_profile # custom type (default : sonata_user_profile)
+            handler:            sonata.user.profile.form.handler.default
+            name:               sonata_user_profile_form
+            # validation_groups:  [Profile]
+
+sonata_formatter:
+    formatters:
+        # markdown:
+        #     service: sonata.formatter.text.markdown
+        #     extensions:
+        #         - sonata.formatter.twig.control_flow
+        #         - sonata.formatter.twig.gist
+        #         - sonata.media.formatter.twig
+
+        # text:
+        #     service: sonata.formatter.text.text
+        #     extensions:
+        #         - sonata.formatter.twig.control_flow
+        #         - sonata.formatter.twig.gist
+        #         - sonata.media.formatter.twig
+
+        # rawhtml:
+        #     service: sonata.formatter.text.raw
+        #     extensions:
+        #         - sonata.formatter.twig.control_flow
+        #         - sonata.formatter.twig.gist
+        #         - sonata.media.formatter.twig
+
+        richhtml:
+            service: sonata.formatter.text.raw
+            extensions:
+                - sonata.formatter.twig.control_flow
+                - sonata.formatter.twig.gist
+                - sonata.media.formatter.twig
+
+        # twig:
+        #     service: sonata.formatter.text.twigengine
+        #     extensions: [] # Twig formatter cannot have extensions
 
 # FOSUserBundle
 fos_user:
@@ -150,3 +194,36 @@ stof_doctrine_extensions:
     orm:
         default:
             sluggable: true
+
+sonata_media:
+    # if you don't use default namespace configuration
+    #class:
+    #    media: MyVendor\MediaBundle\Entity\Media
+    #    gallery: MyVendor\MediaBundle\Entity\Gallery
+    #    gallery_has_media: MyVendor\MediaBundle\Entity\GalleryHasMedia
+    default_context: default
+    db_driver: doctrine_orm # or doctrine_mongodb, doctrine_phpcr
+    contexts:
+        default:  # the default context is mandatory
+            providers:
+                - sonata.media.provider.dailymotion
+                - sonata.media.provider.youtube
+                - sonata.media.provider.image
+                - sonata.media.provider.file
+
+            formats:
+                small: { width: 100 , quality: 70}
+                big:   { width: 500 , quality: 70}
+
+    cdn:
+        server:
+            path: /sites/blog/web/uploads/media  #/uploads/media TODO: mettre un chemin propre
+
+    filesystem:
+        local:
+            directory:  %kernel.root_dir%/../web/uploads/media
+            create:     false
+
+    # providers:
+    #     image:
+    #         resizer: sonata.media.resizer.square

@@ -18,18 +18,6 @@ use Sonata\AdminBundle\Validator\ErrorElement;
 
 class ProfilBlockService extends BaseBlockService
 {
-	// /**
- //     * Constructor
- //     *
- //     * @param string                   $name
- //     * @param EngineInterface          $templating
- //     */
- //    public function __construct($name, EngineInterface $templating)
- //    {
- //        parent::__construct($name, $templating);
-
- //        // $this->securityContext = $securityContext;
- //    }
 
 	/**
      * {@inheritdoc}
@@ -65,13 +53,5 @@ class ProfilBlockService extends BaseBlockService
 	public function validateBlock(ErrorElement $errorElement, BlockInterface $block)
 	{
 	}
-
-    // /**
-    //  * {@inheritdoc}
-    //  */
-    // public function getName()
-    // {
-    //     return 'Profil Block';
-    // }
 }
 

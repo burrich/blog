@@ -4,3 +4,14 @@ services:
         arguments: [sonata.user.block.profil, @templating]
         tags:
             - { name: sonata.block }
+
+    sonata.user.profile_custom.form.type:
+        class: Application\Sonata\UserBundle\Form\Type\ProfileType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: application_sonata_user_profile }
+
+    # sonata.user.twig.country_extension:
+    #     class: Application\Sonata\UserBundle\Twig\CountryExtension
+    #     tags:
+    #         - { name: twig.extension }

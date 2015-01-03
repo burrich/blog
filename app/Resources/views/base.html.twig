@@ -5,8 +5,9 @@
     <title>{% block title %}Welcome to Twin Peaks{% endblock %}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 
+    {# TODO: revoir l'inclusion des assets css (et js !) #}
     {% stylesheets 'css/*' filter='cssrewrite' %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
+      <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />

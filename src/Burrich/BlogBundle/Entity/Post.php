@@ -36,6 +36,26 @@ class Post
     private $slug;
 
     /**
+     * Original content from the user
+     * 
+     * @var string
+     *
+     * @ORM\Column(name="raw_content", type="text")
+     */
+    private $rawContent;
+
+    /**
+     * Store the selected formatter
+     * 
+     * @var string
+     *
+     * @ORM\Column(name="content_formatter", type="string", length=255)
+     */
+    private $contentFormatter;
+
+    /**
+     * Store the transformed content display to the visitor
+     * 
      * @var string
      *
      * @ORM\Column(name="content", type="text")
@@ -124,6 +144,52 @@ class Post
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * Set rawContent
+     *
+     * @param string $rawContent
+     * @return Post
+     */
+    public function setRawContent($rawContent)
+    {
+        $this->rawContent = $rawContent;
+
+        return $this;
+    }
+
+    /**
+     * Get rawContent
+     *
+     * @return string 
+     */
+    public function getRawContent()
+    {
+        return $this->rawContent;
+    }
+
+    /**
+     * Set contentFormatter
+     *
+     * @param string $contentFormatter
+     * @return Post
+     */
+    public function setContentFormatter($contentFormatter)
+    {
+        $this->contentFormatter = $contentFormatter;
+
+        return $this;
+    }
+
+    /**
+     * Get contentFormatter
+     *
+     * @return string 
+     */
+    public function getContentFormatter()
+    {
+        return $this->contentFormatter;
     }
 
     /**
